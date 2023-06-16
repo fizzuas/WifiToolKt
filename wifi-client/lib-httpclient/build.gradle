@@ -31,14 +31,15 @@ android {
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
-    implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
-    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation(rootProject.coreKtxVersion)
+    implementation(rootProject.appcompatVersion)
+    implementation(rootProject.materialVersion)
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    testImplementation(rootProject.junit)
+    androidTestImplementation(rootProject.androidJunit)
+    androidTestImplementation(rootProject.androidEspresso)
 
-    implementation 'io.netty:netty-all:4.1.90.Final'
+    /*netty*/
+    implementation(rootProject.netty)
 
 }

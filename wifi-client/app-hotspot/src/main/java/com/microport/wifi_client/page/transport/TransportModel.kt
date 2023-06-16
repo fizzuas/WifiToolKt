@@ -5,15 +5,14 @@
  */
 package com.microport.wifi_client.page.transport
 
-import android.app.Application
-import com.bhm.support.sdk.common.BaseViewModel
+import com.microport.wifi_client.base.BaseViewModel
 
 
 /**
  * TODO:
  *
- * @author admin
+ * @author ouyx
  * @date 2023年04月14日 16时29分
  */
-class TransportModel(context: Application) : BaseViewModel(context) {
+class TransportModel : BaseViewModel() {
 }

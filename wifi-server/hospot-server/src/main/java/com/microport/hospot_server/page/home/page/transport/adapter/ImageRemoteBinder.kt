@@ -3,10 +3,9 @@
  * 不能修改和删除上面的版权声明
  * 此代码属于上海微创卜算子医疗科技有限公司编写，在未经允许的情况下不得传播复制
  */
-package com.microport.hospot_server.page.transport.adapter
+package com.microport.hospot_server.page.home.page.transport.adapter
 
 import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.binder.QuickItemBinder
 import com.chad.library.adapter.base.viewholder.BaseViewHolder

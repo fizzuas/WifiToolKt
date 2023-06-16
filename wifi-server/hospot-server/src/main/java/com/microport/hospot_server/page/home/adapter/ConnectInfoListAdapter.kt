@@ -13,7 +13,7 @@ import com.microport.hospot_server.R
 /**
  * ouyx
  *
- * @author admin
+ * @author ouyx
  * @date 2023年04月13日 15时03分
  */
 class ConnectInfoListAdapter(layoutId: Int = R.layout.item_simple, list: MutableList<String>) :

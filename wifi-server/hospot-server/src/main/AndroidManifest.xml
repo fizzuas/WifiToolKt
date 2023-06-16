@@ -16,13 +16,13 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Wifiserver">
         <activity
-                android:name=".page.transport.TransportActivity"
+                android:name=".page.home.page.transport.TransportActivity"
                 android:exported="false" />
         <activity
-                android:name=".page.home.MainActivity"
+                android:name=".page.home.page.main.MainActivity"
                 android:exported="true" />
         <activity
-                android:name=".page.home.PermissionActivity"
+                android:name=".page.home.page.permission.PermissionActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

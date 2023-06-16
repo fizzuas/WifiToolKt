@@ -13,6 +13,7 @@ import com.microport.lib_httpclient.contract.content.ImageContent
 import com.microport.lib_httpclient.facade.IHttpClient
 import com.microport.lib_httpclient.facade.PackageReceivedListener
 import com.microport.lib_httpclient.launch.HttpClient
+import com.microport.wifi_client.base.BaseVmActivity
 import com.microport.wifi_client.databinding.ActivityTransportBinding
 import com.microport.wifi_client.page.transport.adapter.*
 import com.microport.wifi_client.util.BitmapUtil
@@ -22,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
-class TransportActivity : Base<TransportModel, ActivityTransportBinding>(), PackageReceivedListener {
+class TransportActivity : BaseVmActivity<ActivityTransportBinding, TransportModel>(ActivityTransportBinding::inflate), PackageReceivedListener {
     private val tag = TransportActivity::class.java.simpleName
     private val logger = DefaultLogger()
     private val mHttpClient: IHttpClient = HttpClient.getInstance()
@@ -31,16 +32,13 @@ class TransportActivity : Base<TransportModel, ActivityTransportBinding>(), Pack
     private val mData = mutableListOf<Any>()
 
 
-    override fun createViewModel(): TransportModel {
-        return TransportModel(application)
-    }
+    override fun viewModelClass()=TransportModel::class.java
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setLightStatusBar(this)
         mHttpClient.setReceivePackageListener(this)
-        viewBinding.butHex.setOnClickListener {
-            val content = viewBinding.etInput.text.toString().trim()
+        mBinding.butHex.setOnClickListener {
+            val content = mBinding.etInput.text.toString().trim()
             if (!ByteUtils.isHexStr(content)) {
                 Toast.makeText(this, "输入必须是HEX", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -57,8 +55,8 @@ class TransportActivity : Base<TransportModel, ActivityTransportBinding>(), Pack
             }
         }
 
-        viewBinding.butSendMsg.setOnClickListener {
-            val content = viewBinding.etInput.text.toString().trim()
+        mBinding.butSendMsg.setOnClickListener {
+            val content = mBinding.etInput.text.toString().trim()
             if (content.isEmpty()) {
                 Toast.makeText(this, "输入不能为空", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -70,7 +68,7 @@ class TransportActivity : Base<TransportModel, ActivityTransportBinding>(), Pack
             }
         }
 
-        viewBinding.butSendImage.setOnClickListener {
+        mBinding.butSendImage.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 val bitmapBytes = BitmapUtil.readBitmap(applicationContext, "data/1.png")
                 val imageContent = ImageContent(0, 0, bitmapBytes)
@@ -80,9 +78,9 @@ class TransportActivity : Base<TransportModel, ActivityTransportBinding>(), Pack
                 }
             }
         }
-        viewBinding.butSendImages.setOnClickListener {
+        mBinding.butSendImages.setOnClickListener {
             excuteTask {
-                viewBinding.butSendImages.text = "hah"
+                mBinding.butSendImages.text = "hah"
             }
         }
 
@@ -93,7 +91,7 @@ class TransportActivity : Base<TransportModel, ActivityTransportBinding>(), Pack
             setList(mData)
         }
 
-        viewBinding.recyclerViewContent.apply {
+        mBinding.recyclerViewContent.apply {
             adapter = mContractUIAdapter
             layoutManager = LinearLayoutManager(this@TransportActivity)
         }
@@ -120,11 +118,11 @@ class TransportActivity : Base<TransportModel, ActivityTransportBinding>(), Pack
     }
 
     fun excuteTask(callback: (Boolean) -> Unit) {
-        thread {
-            Thread.sleep(5000)
-            mainHandler.post() {
-                callback.invoke(true)
-            }
-        }
+//        thread {
+//            Thread.sleep(5000)
+//            mainHandler.post() {
+//                callback.invoke(true)
+//            }
+//        }
     }
 }

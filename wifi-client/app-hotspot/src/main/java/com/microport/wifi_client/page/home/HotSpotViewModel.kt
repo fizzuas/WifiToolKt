@@ -5,8 +5,7 @@
  */
 package com.microport.wifi_client.page.home
 
-import android.app.Application
-import com.bhm.support.sdk.common.BaseViewModel
+import com.microport.wifi_client.base.BaseViewModel
 
 
 /**
@@ -15,5 +14,5 @@ import com.bhm.support.sdk.common.BaseViewModel
  * @author admin
  * @date 2023年04月18日 10时36分
  */
-class HotSpotViewModel(context: Application) : BaseViewModel(context) {
+class HotSpotViewModel() : BaseViewModel() {
 }

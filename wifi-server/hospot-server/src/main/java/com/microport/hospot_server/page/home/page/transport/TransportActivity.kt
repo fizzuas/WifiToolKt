@@ -1,25 +1,23 @@
-package com.microport.hospot_server.page.transport
+package com.microport.hospot_server.page.home.page.transport
 
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bhm.support.sdk.common.BaseVBActivity
-import com.bhm.support.sdk.core.AppTheme.setLightStatusBar
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.microport.hospot_server.databinding.ActivityTransportBinding
-import com.microport.hospot_server.page.transport.adapter.*
+import com.microport.hospot_server.base.BaseVmActivity
+import com.microport.hospot_server.page.home.page.transport.adapter.*
 import com.microport.httpserver.contract.CMD
 import com.microport.httpserver.contract.Packet
 import com.microport.httpserver.contract.content.ImageContent
-import com.microport.httpserver.contract.content.PING_CONTENT
 import com.microport.httpserver.facade.interfaces.IHttpServer
 import com.microport.httpserver.facade.interfaces.PackageReceivedListener
 import com.microport.httpserver.launch.HttpServer
 import com.microport.httpserver.util.ByteUtils
 import com.microport.httpserver.util.log.DefaultLogger
 
-class TransportActivity : BaseVBActivity<TransportModel, ActivityTransportBinding>(), PackageReceivedListener {
+class TransportActivity : BaseVmActivity<ActivityTransportBinding, TransportModel>(ActivityTransportBinding::inflate), PackageReceivedListener {
     private val tag = TransportActivity::class.java.simpleName
     private val logger = DefaultLogger()
     private val mHttpServer: IHttpServer = HttpServer.getInstance()
@@ -27,17 +25,14 @@ class TransportActivity : BaseVBActivity<TransportModel, ActivityTransportBindin
     private val mContractUIAdapter = BaseBinderAdapter()
     private val mData = mutableListOf<Any>()
 
+    override fun viewModelClass(): Class<TransportModel> = TransportModel::class.java
 
-    override fun createViewModel(): TransportModel {
-        return TransportModel(application)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setLightStatusBar(this)
         mHttpServer.setReceivePackageListener(this)
-        viewBinding.butHex.setOnClickListener {
-            val content = viewBinding.etInput.text.toString().trim()
+        mBinding.butHex.setOnClickListener {
+            val content = mBinding.etInput.text.toString().trim()
             if (!ByteUtils.isHexStr(content)) {
                 Toast.makeText(this, "输入必须是HEX", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -55,8 +50,8 @@ class TransportActivity : BaseVBActivity<TransportModel, ActivityTransportBindin
             }
         }
 
-        viewBinding.butSendMsg.setOnClickListener {
-            val content = viewBinding.etInput.text.toString().trim()
+        mBinding.butSendMsg.setOnClickListener {
+            val content = mBinding.etInput.text.toString().trim()
             val packet = Packet(cmd = CMD.STRING_UTF8.value, content = content.toByteArray())
             mHttpServer.sendPackage(packet) {
                 mContractUIAdapter.data.add(TextLocal(content, it))
@@ -70,12 +65,13 @@ class TransportActivity : BaseVBActivity<TransportModel, ActivityTransportBindin
             addItemBinder(ImageRemote::class.java, ImageRemoteBinder())
             setList(mData)
         }
-        viewBinding.recyclerViewContent.apply {
+        mBinding.recyclerViewContent.apply {
             adapter = mContractUIAdapter
             layoutManager = LinearLayoutManager(this@TransportActivity)
         }
 
     }
+
 
     override fun onReceived(cmd: Byte, data: ByteArray?) {
         when (cmd) {

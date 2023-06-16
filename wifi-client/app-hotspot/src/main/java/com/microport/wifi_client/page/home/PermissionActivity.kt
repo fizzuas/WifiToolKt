@@ -4,13 +4,13 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import com.bhm.support.sdk.common.BaseVBActivity
+import com.microport.wifi_client.base.BaseVmActivity
 import com.microport.wifi_client.databinding.ActivityClientMainBinding
 
-class PermissionActivity : BaseVBActivity<PermissionViewModel, ActivityClientMainBinding>() {
+class PermissionActivity : BaseVmActivity<ActivityClientMainBinding, PermissionViewModel>(ActivityClientMainBinding::inflate) {
     private val tag = PermissionActivity::class.java.simpleName
 
-    override fun createViewModel() = PermissionViewModel(application)
+    override fun viewModelClass() = PermissionViewModel::class.java
 
     override fun initData() {
         super.initData()

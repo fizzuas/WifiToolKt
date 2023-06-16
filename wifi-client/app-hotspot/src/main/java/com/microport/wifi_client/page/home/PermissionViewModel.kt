@@ -1,13 +1,12 @@
 package com.microport.wifi_client.page.home
 
-import android.app.Application
-import com.bhm.support.sdk.common.BaseViewModel
+import com.microport.wifi_client.base.BaseViewModel
 
 /**
- * @author Buhuiming
+ * @author ouyx
  * @description:
  * @date :2022/6/28 14:52
  */
-class PermissionViewModel(context: Application) : BaseViewModel(context) {
+class PermissionViewModel: BaseViewModel() {
 
 }
