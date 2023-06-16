@@ -1,0 +1,10 @@
+syntax = "proto3";
+//1. 安装 protoc
+//2. 切换到 proto目录 ，执行 protoc --java_out=../java/ ImgPackageClass.proto
+package com.microport.adbusb.protobuf;
+
+message ImagePackage{
+  uint64 index = 1;
+  uint64  st = 2;
+  bytes imgData = 3;
+}
